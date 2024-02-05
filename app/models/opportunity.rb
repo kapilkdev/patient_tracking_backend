@@ -4,9 +4,13 @@ class Opportunity < ApplicationRecord
   validates :patient_id, :doctor_id, presence: true
 
   validate :validate_member_role
+  validates :patient_id, uniqueness: { scope: :doctor_id, message: "should be unique for each doctor" }
+  validates :doctor_id, uniqueness: { scope: :patient_id, message: "should be unique for each patient" }
   
   belongs_to :patient, class_name: 'Member', foreign_key: 'patient_id'
   belongs_to :doctor, class_name: 'Member', foreign_key: 'doctor_id'
+
+  before_save :capitalize_procedure_name
 
   pg_search_scope :search_by_name_and_procedure,
                   against: [:procedure_name],
@@ -29,5 +33,10 @@ class Opportunity < ApplicationRecord
         errors.add(:doctor_id, 'should have doctor')
       end
     end
+  end
+  
+  def capitalize_procedure_name
+    self.procedure_name = procedure_name.capitalize if procedure_name
+    .present?
   end
 end

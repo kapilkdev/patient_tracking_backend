@@ -4,7 +4,7 @@ class OpportunitiesController < ApplicationController
   def index
     @opportunities = Opportunity.includes(:patient, :doctor)
     opportunities = @opportunities.map do |opportunity|
-      oppotunitie(opportunity)
+      serailize_opportunity(opportunity)
     end
     render json: {opportunities: opportunities}, status: :ok
   end
@@ -54,7 +54,10 @@ class OpportunitiesController < ApplicationController
   def search_by_name_and_procedure
     if params[:search].present?
       @opportunities = Opportunity.search_by_name_and_procedure(params[:search])
-      render json: { opportunities: @opportunities}, status: :ok
+      opportunities = @opportunities.map do |opportunity|
+        serailize_opportunity(opportunity)
+      end
+      render json: {opportunities: opportunities}, status: :ok
     else
       render json: { message: 'No search term provided' }, status: :bad_request
     end
@@ -76,7 +79,7 @@ class OpportunitiesController < ApplicationController
     )
   end  
 
-  def oppotunitie(opportunity)
+  def serailize_opportunity(opportunity)
     {
       id: opportunity.id,
       procedure_name: opportunity.procedure_name,
