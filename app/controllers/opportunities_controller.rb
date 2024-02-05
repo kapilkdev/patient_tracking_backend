@@ -1,5 +1,5 @@
 class OpportunitiesController < ApplicationController
-  before_action :set_opportunity, only: [:show, :update, :destroy, :update_stage]
+  before_action :set_opportunity, only: [ :update, :update_stage]
   
   def index
     @opportunities = Opportunity.includes(:patient, :doctor)
@@ -9,9 +9,6 @@ class OpportunitiesController < ApplicationController
     render json: {opportunities: opportunities}, status: :ok
   end
 
-  def show
-    render json: @opportunity, status: :ok
-  end
 
   def create
     @opportunity = Opportunity.new(opportunity_params)
@@ -31,10 +28,6 @@ class OpportunitiesController < ApplicationController
     end
   end
 
-  def destroy
-    @opportunity.destroy
-    head :no_content
-  end
 
   def update_stage
     if @opportunity

@@ -1,6 +1,6 @@
 # app/controllers/members_controller.rb
 class MembersController < ApplicationController
-  before_action :set_member, only: [:show, :update, :destory]
+  before_action :set_member, only: [:show, :update]
 
   def index
     case params[:type]
@@ -42,14 +42,6 @@ class MembersController < ApplicationController
     end
   end
 
-  def destory
-    if @member
-      @member.destory
-      render json: {message: 'Member destoryed succesfully'}, status: :ok
-    else
-      render json: { message: 'Member not found' }, status: :not_found
-    end
-  end
 
   private
 
