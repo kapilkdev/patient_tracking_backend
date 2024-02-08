@@ -1,7 +1,7 @@
 databases:
   - name: patient_tracking_database
     databaseName: hospital_production
-    user: patient_tracking_database_user
+    user: postgres
     plan: free
 
 services:
@@ -13,11 +13,12 @@ services:
     # preDeployCommand: "./bin/rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "./bin/rails server"
     envVars:
-      - key: postgres://patient_tracking_database_user:GMe1eJSgjROokM4fB6HYuav4YsENxCxy@dpg-cn2bp4qcn0vc738v0tq0-a/patient_tracking_database
-        fromDatabase:
-          name: patient_tracking_database
-          property: connectionString
-      - key: 486319daa961d4eddb16857d26a10cb7
-        sync: false
-      - key: 2
-        value: 2 # sensible default
+       key: DATABASE_URL
+      value: postgres://patient_tracking_database_user:GMe1eJSgjROokM4fB6HYuav4YsENxCxy@dpg-cn2bp4qcn0vc738v0tq0-a/patient_tracking_database
+    - key: SECRET_KEY
+      value: 486319daa961d4eddb16857d26a10cb7
+    - key: SOME_NUMBER
+      value: 2
+      sync: false
+    - key: WEB_CONCURRENCY
+      value: 2 # sensible default

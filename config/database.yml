@@ -81,7 +81,8 @@ test:
 #
 production:
   <<: *default
-  database: hospital_production
-  username: hospital
-  host: dpg-cn2bp4qcn0vc738v0tq0-a
-  password: <%= ENV["HOSPITAL_DATABASE_PASSWORD"] %>
+  database: patient_tracking_database
+  username: patient_tracking_database_user
+  url: <%= ENV["DB_URL"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  host: <%= ENV["DB_HOST"] %>
