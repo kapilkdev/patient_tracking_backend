@@ -1,7 +1,7 @@
 databases:
   - name: patient_tracking_database
     databaseName: hospital_production
-    user: postgres
+    user: patient_tracking_database_user
     plan: free
 
 services:
