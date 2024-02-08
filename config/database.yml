@@ -83,4 +83,5 @@ production:
   <<: *default
   database: hospital_production
   username: hospital
+  host: dpg-cn2bp4qcn0vc738v0tq0-a
   password: <%= ENV["HOSPITAL_DATABASE_PASSWORD"] %>
